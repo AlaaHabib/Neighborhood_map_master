@@ -151,12 +151,17 @@ var map;
          // to change the colors back and forth.
          marker.addListener('mouseover', function() {
            this.setIcon(highlightedIcon);
+
+
+
          });
          marker.addListener('mouseout', function() {
            this.setIcon(defaultIcon);
+           toglBounce(this);
+           
          });
          this.bounce = function(place) {
-           google.maps.event.trigger(this.marker, 'click');
+           google.maps.event.trigger(markers, 'click');
          };
 
        }
@@ -164,9 +169,13 @@ var map;
        function toggleBounce(marker) {
          if (marker.getAnimation() !== null) {
              marker.setAnimation(null);
-           }
+           }else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
          }
-
+      function toglBounce(marker){
+        marker.setAnimation(null);
+       }
        //search
        var viewModel = {
         items : [{ Name: ""},{ Name: ""}, { Name: ""}, { Name: ""}, { Name: ""}]
@@ -189,9 +198,8 @@ var map;
       });
 
       //end search
-      $(function(){
-     ko.applyBindings(new viewModel(markers));
- });
+      ko.applyBindings(viewModel);
+     }
 
      // This function populates the infowindow when the marker is clicked. We'll only allow
      // one infowindow which will open at the marker that is clicked, and populate based
