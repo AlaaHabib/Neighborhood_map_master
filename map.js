@@ -161,7 +161,8 @@ var map;
            
          });
          this.bounce = function(place) {
-           google.maps.event.trigger(markers, 'click');
+          
+           google.maps.event.trigger(marker, 'click');
          };
 
        }
@@ -198,12 +199,13 @@ var map;
           });
 
 
+
           for ( var i = 0 ; i < array.length ; i++){
-            if( array[i].Name != markers[i].title)
+            if( array[i].Name === markers[i].title)
                { 
-                markers[i].setVisible(false);}
-             else{ markers[i].setVisible(true)};
-          };
+                markers[i].setVisible(true);}
+             else{ markers[i].setVisible(false);}
+          }
         
 
           return viewModel.items.filter(function(i) {
