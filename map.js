@@ -190,6 +190,21 @@ var map;
 
       viewModel.searchResults = ko.computed(function() {
           var q = viewModel.Query();
+          ////////////////////////////////
+          
+          array = viewModel.items.filter(function(i){
+            var name = i.Name.toLowerCase().indexOf(q) >=0;
+            return name ;
+          });
+
+
+          for ( var i = 0 ; i < array.length ; i++){
+            if( array[i].Name != markers[i].title)
+               { 
+                markers[i].setVisible(false);}
+             else{ markers[i].setVisible(true)};
+          };
+        
 
           return viewModel.items.filter(function(i) {
             var name = i.Name.toLowerCase().indexOf(q) >= 0;
