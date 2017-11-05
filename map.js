@@ -3,7 +3,7 @@ var map;
      // Create a new blank array for all the listing markers.
      var markers = [];
      var locations = [];
-
+var test = [];
      function initMap() {
        var styles = [
           {
@@ -104,17 +104,18 @@ var map;
                  }},
 
                  {
-                   title: 'Citadel of Qaitbay',
-                    location: {
-                      lat: 31.2140,
-                      lng: 29.8856
-                 }},
-
-                 {
-                   title: 'Bibliotheca_Alexandrina',
+                    title: 'Bibliotheca_Alexandrina',
                      location: {
                        lat: 31.208872,
                        lng: 29.9092
+                 }},
+
+                 {
+                  
+                    title: 'Citadel of Qaitbay',
+                    location: {
+                      lat: 31.2140,
+                      lng: 29.8856
                  }}
        ];
 
@@ -153,7 +154,6 @@ var map;
            this.setIcon(highlightedIcon);
 
 
-
          });
          marker.addListener('mouseout', function() {
            this.setIcon(defaultIcon);
@@ -161,12 +161,14 @@ var map;
            
          });
          this.bounce = function(place) {
-          
-           google.maps.event.trigger(marker, 'click');
+         for (var j = 0 ; j < locations.length; j++ ){
+            if ( place.Name === markers[j].title)
+             google.maps.event.trigger(markers[j], 'click');
+            }
+
          };
 
        }
-
        function toggleBounce(marker) {
          if (marker.getAnimation() !== null) {
              marker.setAnimation(null);
@@ -177,6 +179,7 @@ var map;
       function toglBounce(marker){
         marker.setAnimation(null);
        }
+       
        //search
        var viewModel = {
         items : [{ Name: ""},{ Name: ""}, { Name: ""}, { Name: ""}, { Name: ""}]
@@ -200,13 +203,37 @@ var map;
 
 
 
-          for ( var i = 0 ; i < array.length ; i++){
-            if( array[i].Name === markers[i].title)
-               { 
-                markers[i].setVisible(true);}
-             else{ markers[i].setVisible(false);}
+          for ( var i = 0 ; i < markers.length ; i++){
+           
+            if (array.length == 0 ){
+              for( var k = 0 ; k < markers.length ;k++){
+                markers[k].setVisible(false);
+              }
+            }
+            else if (array.length == markers.length){
+              markers[i].setVisible(true);
+            }
+            else if (array.length < markers.length){
+              for ( var x = 0 ; x < markers.length ; x++){
+              for (var j=0 ; j < array.length ; j++){
+                if (markers[x].title == array[j].Name){
+                  markers[x].setVisible(true);
+                  break;
+                   
+                }
+                  else {
+                    markers[x].setVisible(false);
+                  ;
+                }
+                
+              }
+            }
           }
         
+            else markers[i].setVisible(false);
+            
+          
+        }
 
           return viewModel.items.filter(function(i) {
             var name = i.Name.toLowerCase().indexOf(q) >= 0;
