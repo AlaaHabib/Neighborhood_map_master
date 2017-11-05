@@ -205,7 +205,7 @@ var test = [];
 
           for ( var i = 0 ; i < markers.length ; i++){
            
-            if (array.length == 0 ){
+            if (array.length === 0 ){
               for( var k = 0 ; k < markers.length ;k++){
                 markers[k].setVisible(false);
               }
@@ -223,7 +223,7 @@ var test = [];
                 }
                   else {
                     markers[x].setVisible(false);
-                  ;
+                  
                 }
                 
               }
