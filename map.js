@@ -147,6 +147,7 @@ var test = [];
          marker.addListener('click', function() {
            populateInfoWindow(this, largeInfowindow);
            toggleBounce(this);
+           
          });
          // Two event listeners - one for mouseover, one for mouseout,
          // to change the colors back and forth.
@@ -160,22 +161,22 @@ var test = [];
            toglBounce(this);
            
          });
+         //click on search 
          this.bounce = function(place) {
-         for (var j = 0 ; j < locations.length; j++ ){
-            if ( place.Name === markers[j].title)
+         for (var j = 0 ; j <= locations.length; j++ ){
+            if ( place.Name === markers[j].title){
              google.maps.event.trigger(markers[j], 'click');
-            }
-
+             break; }                      
+            markers[j].setAnimation(null); 
+          }
          };
-
        }
-       function toggleBounce(marker) {
-         if (marker.getAnimation() !== null) {
-             marker.setAnimation(null);
-           }else {
+   
+      // put animation 
+       function toggleBounce(marker) {     
           marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
          }
+      // remove animation 
       function toglBounce(marker){
         marker.setAnimation(null);
        }
@@ -194,7 +195,7 @@ var test = [];
 
       viewModel.searchResults = ko.computed(function() {
           var q = viewModel.Query();
-          ////////////////////////////////
+          
           
           array = viewModel.items.filter(function(i){
             var name = i.Name.toLowerCase().indexOf(q) >=0;
@@ -202,7 +203,7 @@ var test = [];
           });
 
 
-
+         //filtered markers 
           for ( var i = 0 ; i < markers.length ; i++){
            
             if (array.length === 0 ){
