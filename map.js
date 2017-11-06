@@ -145,8 +145,9 @@ var test = [];
 
          // Create an onclick event to open an infowindow at each marker.
          marker.addListener('click', function() {
-           populateInfoWindow(this, largeInfowindow);
-           toggleBounce(this);
+           populateInfoWindow(this, largeInfowindow) + this.setAnimation(google.maps.Animation.BOUNCE);
+           //toggleBounce(this);
+          // markers[0].setAnimation(null);
            
          });
          // Two event listeners - one for mouseover, one for mouseout,
@@ -157,8 +158,8 @@ var test = [];
 
          });
          marker.addListener('mouseout', function() {
-           this.setIcon(defaultIcon);
-           toglBounce(this);
+           this.setIcon(defaultIcon) + this.setAnimation(null);
+           //toglBounce(this);
            
          });
          //click on search 
@@ -166,9 +167,12 @@ var test = [];
          for (var j = 0 ; j <= locations.length; j++ ){
             if ( place.Name === markers[j].title){
              google.maps.event.trigger(markers[j], 'click');
-             break; }                      
-            markers[j].setAnimation(null); 
+             break;
+              }   
           }
+           setTimeout((function() {
+            markers[j].setAnimation(null); 
+        }), 750);
          };
        }
    
